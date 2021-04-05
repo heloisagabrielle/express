@@ -1,18 +1,26 @@
 {
-  "name": "estudoexpress",
+  "name": "petshop-express-avanade",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "express": "^4.17.1",
-    "nodemon": "^2.0.7",
-    "pkg.json": "^2.0.8"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.js"
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fronthendy/petshop-express-avanade.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fronthendy/petshop-express-avanade/issues"
+  },
+  "homepage": "https://github.com/fronthendy/petshop-express-avanade#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "moment": "^2.29.1",
+    "nodemon": "^2.0.7"
+  }
 }

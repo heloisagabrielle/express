@@ -1,62 +1,41 @@
-const { response } = require('express');
+// servidor e rotas
 const express = require('express');
+const petshop = require('./petshop');
 
 const app = express();
+app.use(express.json());
 
-/**
- *  Query Params: Vamos usar principalmente para filtros e paginação
- *  Route Params: Identificar recursos na hora de atualizar ou deletar
- *  Request Params:
- *  
- */
-
-
-app.get('/projects', (request, response) => {
-    const { title, owner } = request.query;
-
-    console.log(title);
-    console.log(owner);
-
-    return response.json([
-        'Projeto 1',
-        'Projeto 2',
-        'Projeto 100'
-    ])
-});
-
-app.post('/projects', (request, response) => {
-    const body = request.body;
-
-    console.log(body);
-
-    return response.json([
-        'Projeto 1',
-        'Projeto 2',
-        'Projeto 3',
-        'Projeto 4',
-        'Projeto 5'
-    ])
+app.get('/pets', (req, res) => {
+    return res.send(petshop.listarPets());
 })
 
-app.put('/projects/:id', (request, response) => {
-    const params = request.params;
+app.post('/pets', (req, res) => {
+    const novoPet = req.body;
+    const petAdicionado = petshop.adicionarPet([novoPet]);
 
-    console.log(params)
+    if (!petAdicionado) {
+        return res.status(400);
+    }
+    return petAdicionado;
+})
 
-    return response.json([
-        'Projeto 50',
-        'Projeto 2',
-        'Projeto 3',
-        'Projeto 4',
-        'Projeto 5'
-    ]);
+app.get('/pets/:nome', (req, res) => {
+    const {
+        nome
+    } = req.params;
+    const petEncontrado = petshop.buscarPet(nome);
+
+    if (!petEncontrado) {
+        return res.status(400).json({
+            error: 'Pet não foi encontrado'
+        });
+    }
+
+    return res.json(petEncontrado);
+})
+
+app.listen(3333, () => {
+    console.log('Servidor rodando!');
 });
 
-app.delete('/projects/:id', (request, response) => {
-    return response.json([
-        'Projeto 50',
-        'Projeto 2',
-    ]);
-});
-
-app.listen(3333);
+// console.log(petshop.listarPets());
